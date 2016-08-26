@@ -2,12 +2,15 @@
 
 const Router = require('koa-router')
 var mainRouter = new Router();
-const leoRouter = require('./leoRouter')(mainRouter)
+const libRouter = require('./libRouter')
+const blogRouter = require('./blogRouter')
 
-mainRouter.use('/leo',leoRouter.routes())
 
-mainRouter.get('/',function*(){
-  this.response.body = 'Hello World!';
+mainRouter.use('/leo',blogRouter.routes())
+mainRouter.use('/lib',libRouter.routes())
+
+mainRouter.get('/',function*(next){
+  this.response.body = 'here is the home page';
 })
 
 module.exports = mainRouter

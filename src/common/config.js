@@ -10,4 +10,4 @@ module.exports = {
     
     // 本地调试
     localDebug: true
-  }
+}
