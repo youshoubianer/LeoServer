@@ -1,0 +1,16 @@
+{
+  "name": "leoserver",
+  "version": "1.0.0",
+  "description": "the server for Leo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "you_shoubian@163.com",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^1.2.1",
+    "koa-router": "^5.4.0"
+  }
+}
