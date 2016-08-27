@@ -6,8 +6,8 @@ const libRouter = require('./libRouter')
 const blogRouter = require('./blogRouter')
 
 
-mainRouter.use('/leo',blogRouter.routes())
-mainRouter.use('/lib',libRouter.routes())
+mainRouter.use('/leo/blog',blogRouter.routes())
+mainRouter.use('/leo/library',libRouter.routes())
 
 mainRouter.get('/',function*(next){
   this.response.body = 'here is the home page';
