@@ -1,5 +1,3 @@
 node_modules
 npm-debug.log
 src/common/config.js
-/src/models/*
-!/src/models/index.js
