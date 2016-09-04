@@ -1,22 +1,18 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('l_articleDiscussion', {
+  return sequelize.define('l_tags', {
     id: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-    articleId: {
-      type: DataTypes.INTEGER(11),
-      allowNull: false
-    },
-    discussID: {
-      type: DataTypes.INTEGER(11),
+    tagName: {
+      type: DataTypes.STRING,
       allowNull: false
     }
   }, {
-    tableName: 'l_articleDiscussion'
+    tableName: 'l_tags'
   });
 };

@@ -20,10 +20,22 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: true
     },
-    reIds: {
+    replyId: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       defaultValue: '0'
+    },
+    articleId: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false
+    },
+    create_at: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    update_at: {
+      type: DataTypes.DATE,
+      allowNull: false
     }
   }, {
     tableName: 'l_discussion'

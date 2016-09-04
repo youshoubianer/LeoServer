@@ -14,5 +14,8 @@ module.exports = new Sequelize(config.db.database, config.db.username, config.db
   logging: config.db.logging,
   option:{
     logging: config.db.logging,
+  },
+  define: {
+    timestamps: false,
   }
 });

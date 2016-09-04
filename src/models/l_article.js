@@ -14,14 +14,10 @@ module.exports = function(sequelize, DataTypes) {
     },
     state: {
       type: DataTypes.INTEGER(11),
-      allowNull: false
+      allowNull: false,
+      defaultValue: '0'
     },
     tagIds: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: '[]'
-    },
-    discussIds: {
       type: DataTypes.STRING,
       allowNull: false,
       defaultValue: '[]'
@@ -37,6 +33,14 @@ module.exports = function(sequelize, DataTypes) {
     },
     content: {
       type: DataTypes.TEXT,
+      allowNull: false
+    },
+    create_at: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    update_at: {
+      type: DataTypes.DATE,
       allowNull: false
     }
   }, {
