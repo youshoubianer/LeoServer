@@ -11,6 +11,17 @@ var router = require('koa-router')()
 
 app.use(logger())
 
+app.use(function *(next) {
+  this.set('Access-Control-Allow-Origin', '*');
+  this.set('Access-Control-Allow-Headers', 'Content-Type');
+  this.set('Access-Control-Allow-Methods', 'GET,POST,PUT,OPTIONS');
+  if (this.method === 'OPTIONS') {
+   this.status = 204
+   return
+ }
+ yield next;
+})
+
 app.use(function *(next){
   try {
     yield next

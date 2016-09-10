@@ -6,8 +6,28 @@ const discussionTable = 'l_discussion'
 
 //获取article列表
 exports.getArticleList = function *() {
-  let articleList = yield models[articleTable].findAndCountAll()
-  this.data = articleList
+  let articleList = yield models[articleTable].findAndCountAll({
+    attributes: { exclude: ['content'] }
+  })
+  
+  let discuss = yield models[discussionTable].findAll({
+    attributes: ['articleId','count(articleId)'],
+    group: ['articleId']
+  })
+  console.log(discuss);
+  try {
+    for(let article of articleList.rows) {
+      let tagIds = JSON.parse(article.tagIds)
+      article.tagIds = tagIds
+      
+
+      // article.discussCount = discussCount
+
+    }
+    this.data = articleList
+  } catch (e) {
+    this.data = {'msg':'get articles failed!\nError message'+e}
+  } 
 }
 
 //获取article内容
