@@ -10,19 +10,25 @@ exports.getArticleList = function *() {
     attributes: { exclude: ['content'] }
   })
   
+  articleList = JSON.parse(JSON.stringify(articleList))
+  
   let discuss = yield models[discussionTable].findAll({
-    attributes: ['articleId','count(articleId)'],
+    attributes: ['articleId',[Sequelize.fn('COUNT', Sequelize.col('articleId')), 'articleIdCounts']],
     group: ['articleId']
   })
-  console.log(discuss);
+  console.log(JSON.stringify(discuss));
+  discuss = JSON.parse(JSON.stringify(discuss))
+  let discussionCnt = {}
+  discuss.map(function(item){
+    console.log(item);
+    discussionCnt[item.articleId] = item.articleIdCounts
+  })
+  
   try {
     for(let article of articleList.rows) {
       let tagIds = JSON.parse(article.tagIds)
       article.tagIds = tagIds
-      
-
-      // article.discussCount = discussCount
-
+      article['discussCount'] = discussionCnt[article.id] || 0
     }
     this.data = articleList
   } catch (e) {
@@ -46,10 +52,36 @@ exports.getAticleById=function*(){
 
 //编辑article
 exports.editArticle = function *() {
-  let article = this.request.body
+  
+  let article = this.request.body.data
+  try {
+    article = JSON.parse(article)
+  } catch (e) {
+      console.log('err>>>',e);
+  }
+  
   let current_date = new Date()
   article.update_at = current_date
   
+  let tags = article.tags
+  let tagsList = yield models[tagsTable].findAndCountAll()
+  let tagIds = []
+  for(let tag of tags){
+    let flag = false
+    for(let item of tagsList.rows){
+      if(tag == item.tagName){
+        tagIds.push(item.id)
+        flag = true
+        break;
+      }
+    }
+    if(!flag){
+      let newTag = yield models[tagsTable].create({tagName:tag})
+      tagIds.push(newTag.id)
+    }
+  }
+  article.tagIds = JSON.stringify(tagIds)
+
   if(article.id){
     try {
       let res = yield models[articleTable].update(article,{where:{id:article.id}})
