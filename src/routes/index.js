@@ -1,7 +1,7 @@
 'use strict';
 
 const base = require('../api_service/base')
-const koaBody = require('koa-body')()
+const koaBody = require('koa-body')({jsonLimit:'100mb',formLimit:'100mb',textLimit: '100mb'})
 
 function routes(router){
   //blog routers
